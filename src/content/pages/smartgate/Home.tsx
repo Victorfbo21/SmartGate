@@ -34,9 +34,10 @@ export const SGHome = () => {
 
     const controller = new AbortController();
     let params: RequestInit = {
-      signal: controller.signal
+      signal: controller.signal,
+      method: "GET"
     }
-    setTimeout(() => controller.abort(), 400);
+    // setTimeout(() => controller.abort(), 1000);
     fetch('http://portao.c2atec.com:30147/handler?pass=' + gatePass + '&action=' + action,
       params
     )
