@@ -15,7 +15,7 @@ interface NewAnimatePresenceProps extends Omit<ThemeProviderWrapperProps, "child
 }
 
 const ThemeProviderWrapper = ({ children }: { children: React.ReactNode }) => {
-  const curThemeName = localStorage.getItem('appTheme') || 'PureLightTheme';
+  const curThemeName = localStorage.getItem('appTheme') || 'NebulaFighterTheme';
   const [themeName, _setThemeName] = useState(curThemeName);
   const theme = themeCreator(themeName);
   const setThemeName = (themeName: string): void => {

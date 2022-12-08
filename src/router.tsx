@@ -63,114 +63,28 @@ const Users = Loader(
 const AddUser = Loader(
   lazy(() => import('src/content/pages/Users/AddUser'))
 );
+const SGHome = Loader(
+  lazy(() => import('src/content/pages/smartgate/Home'))
+);
 const routes: RouteObject[] = [
-  {
-    path: '',
-    element: <RequireAuth><SidebarLayout /></RequireAuth>,
-    children: [
-      {
-        path: '/',
-        element: <HomeDashboard />
-      },
-    ]
-  },
-  {
-    path: 'orgs',
-    element: <RequireAuth><SidebarLayout /></RequireAuth>,
-    children: [
-      {
-        path: '',
-        element: <Orgs />
-      },
-      {
-        path: ':id',
-        element: <RequireAuth role="admin"><AddOrg /></RequireAuth>
-      },
-      {
-        path: 'add',
-        element: <RequireAuth role="user"><AddOrg /></RequireAuth>
-      },
-    ]
-  },
-  {
-    path: 'users',
-    element: <RequireAuth><SidebarLayout /></RequireAuth>,
-    children: [
-      {
-        path: '',
-        element: <Users />
-      },
-      {
-        path: ':id',
-        element: <RequireAuth role="user"><AddUser /></RequireAuth>
-      },
-      {
-        path: 'password/:id',
-        element: <RequireAuth role="user"><AddUser editPassword={true} /></RequireAuth>
-      },
-      {
-        path: 'add',
-        element: <RequireAuth role="user"><AddUser /></RequireAuth>
-      },
-    ]
-  },
-
-  {
-    path: 'projects',
-    element: <RequireAuth><SidebarLayout /></RequireAuth>,
-    children: [
-      {
-        path: '',
-        element: <Projects />
-      },
-      {
-        path: 'charts/:id',
-        element: <Charts />
-      },
-      {
-        path: 'org/:orgId',
-        element: <Projects />
-      },
-      {
-        path: ':id',
-        element: <RequireAuth role="user"><AddProject /></RequireAuth>
-      },
-      {
-        path: 'add',
-        element: <RequireAuth role="user"><AddProject /></RequireAuth>
-      },
-    ]
-  },
-
-  {
-    path: 'equipments',
-    element: <RequireAuth><SidebarLayout /></RequireAuth>,
-    children: [
-      {
-        path: '',
-        element: <Equipments />
-      },
-      {
-        path: 'project/:projectId',
-        element: <Equipments />
-      },
-      {
-        path: ':id',
-        element: <RequireAuth role="user"><AddEquipment /></RequireAuth>
-      },
-      {
-        path: 'add',
-        element: <RequireAuth role="user"><AddEquipment /></RequireAuth>
-      },
-    ]
-  },
+  // {
+  //   path: '',
+  //   element: <RequireAuth><SidebarLayout /></RequireAuth>,
+  //   children: [
+  //     {
+  //       path: '/',
+  //       element: <HomeDashboard />
+  //     },
+  //   ]
+  // },
+   
   {
     path: '',
     element: <BaseLayout />,
     children: [
       {
         path: '/',
-        element: <Login />
+        element: <SGHome/>
       },
       {
         path: '/login',
@@ -205,20 +119,6 @@ const routes: RouteObject[] = [
         path: '*',
         element: <Status404 />
       }
-    ]
-  },
-  {
-    path: 'dashboard',
-    element: <RequireAuth><SidebarLayout /></RequireAuth>,
-    children: [
-      {
-        path: '',
-        element: <HomeDashboard />
-      },
-      {
-        path: 'dashboard',
-        element: <HomeDashboard />
-      },
     ]
   }
 ];
