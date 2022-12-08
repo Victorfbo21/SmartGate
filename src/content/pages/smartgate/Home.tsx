@@ -28,8 +28,18 @@ const MainContent = styled(Box)(
   `
 );
 export const SGHome = () => {
+  const searchParams = new URLSearchParams(document.location.search);
+  const gatePass = searchParams.get("pass");
   const gateHandler = (action: String) => {
-    fetch('http://portao.c2atec.com:30147/handler?pass=Ca15ar80@@&action=' + action)
+
+    const controller = new AbortController();
+    let params: RequestInit = {
+      signal: controller.signal
+    }
+    setTimeout(() => controller.abort(), 400);
+    fetch('http://portao.c2atec.com:30147/handler?pass=' + gatePass + '&action=' + action,
+      params
+    )
       .then(() => {
         toast.success('Portão acionado com sucesso')
       })
@@ -63,13 +73,14 @@ export const SGHome = () => {
                   Abrir
                 </Button>
                 <Button
+                  onClick={() => { gateHandler('close') }}
 
                   sx={{ m: 1 }}
                   variant="contained">
                   Fechar
                 </Button>
                 <Button
-
+                  onClick={() => { gateHandler('timed') }}
                   sx={{ m: 1 }}
                   variant="contained">
                   Abrir e Fechar
