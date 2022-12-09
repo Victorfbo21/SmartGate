@@ -26,10 +26,12 @@ spec:
     spec:
       containers:
         - name: smartgate-app
-          image: 'lscr.io/linuxserver/code-server:latest'
+          image: 'registry.c2atec.com/smartgate'
           ports:
             - containerPort: 3000
           imagePullPolicy: Always
+      imagePullSecrets:
+        - name: regcred
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
