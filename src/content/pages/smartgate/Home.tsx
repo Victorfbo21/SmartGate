@@ -73,7 +73,7 @@ export const SGHome = () => {
           <Container maxWidth="sm">
             <Card sx={{ textAlign: 'center', m: 3, p: 4 }}>
               <Box textAlign="center" >
-                <img alt="logo" width={100} src="/static/images/logo/c2a.svg" />
+                <img alt="logo" width={100} src={process.env.PUBLIC_URL + "/static/images/logo/c2a.svg"} />
                 <Typography
                   variant="h4"
                   color="text.secondary"

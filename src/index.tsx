@@ -88,12 +88,12 @@ const client = new ApolloClient({
   link: authLink.concat(errorLink).concat(httpLink),
   cache: new InMemoryCache(),
 });
-
+console.log(process.env.PUBLIC_URL);
 root.render(
   <HelmetProvider>
     <SidebarProvider>
       <AuthProvider>
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL} >
           <App />
         </BrowserRouter>
       </AuthProvider>
