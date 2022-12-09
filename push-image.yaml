@@ -9,7 +9,7 @@ spec:
       args:
         [
           '--dockerfile=/workspace/smartgate/Dockerfile',
-          '--context=/workspace',
+          '--context=/workspace/smartgate/',
           '--destination=registry.c2atec.com/smartgate:1.0'
         ]
       volumeMounts:
