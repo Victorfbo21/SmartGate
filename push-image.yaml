@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kaniko
+spec:
+  containers:
+    - name: kaniko
+      image: gcr.io/kaniko-project/executor:latest
+      args:
+        [
+          '--dockerfile=/workspace/Dockerfile',
+          '--context=/workspace',
+          '--destination=registry.c2atec.com/smartgate:1.0'
+        ]
+      volumeMounts:
+        - name: kaniko-secret
+          mountPath: /kaniko/.docker
+        - name: kaniko-secret2
+          mountPath: /root/.docker
+        - name: dockerfile-storage
+          mountPath: /workspace
+  restartPolicy: Never
+  volumes:
+    - name: kaniko-secret
+      secret:
+        secretName: kaniko-secret
+        items:
+          - key: config.json
+            path: config.json
+    - name: kaniko-secret2
+      secret:
+        secretName: kaniko-secret
+        items:
+          - key: config.json
+            path: config.json
+    - name: dockerfile-storage
+      persistentVolumeClaim:
+        claimName: dockerfile-claim
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: dockerfile
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-storage
+  hostPath:
+    path: /home/sa/projects/smartgate
