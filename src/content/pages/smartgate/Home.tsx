@@ -18,7 +18,7 @@ import { AuthContext } from "src/contexts/Auth/AuthContext";
 import { toast } from 'react-toastify';
 import LockOpenOutlined from '@mui/icons-material/LockOpenOutlined';
 import LockOutlined from '@mui/icons-material/LockOutlined';
-import io from 'socket.io-client';
+
 const MainContent = styled(Box)(
   ({ theme }) => `
       height: 100%;
@@ -37,54 +37,39 @@ export const SGHome = () => {
   const gateHandler = (action: String) => {
     const controller = new AbortController();
     let params: RequestInit = {
-      signal: controller.signal,
-      method: "GET"
-    }
-    const socket = io("portao.c2atec.com:30147");
-    socket.on("connection", () => {
-      socket.send('/handler?pass=' + gatePass + '&action=' + action)
-    });
-    socket.on("error", (e) => {
-      toast.error('Erro ao acionar o portão')
-    });
-    socket.on("message", () => {
-      toast.success('Portão acionado com sucesso')
-      if (action == "open") {
-        setOpen(true);
-      }
-      if (action == "close") {
-        setOpen(false);
-      }
-      if (action == "timed") {
-        setOpen(true);
-        setTimeout(() => {
-          setOpen(false);
-        }, 30000)
-      }
-    })
-    // setTimeout(() => controller.abort(), 1000);
-    // fetch('http://portao.c2atec.com:30147/handler?pass=' + gatePass + '&action=' + action,
-    //   params
-    // )
-    //   .then(() => {
 
-    //     toast.success('Portão acionado com sucesso')
-    //     if (action == "open") {
-    //       setOpen(true);
-    //     }
-    //     if (action == "close") {
-    //       setOpen(false);
-    //     }
-    //     if (action == "timed") {
-    //       setOpen(true);
-    //       setTimeout(() => {
-    //         setOpen(false);
-    //       }, 30000)
-    //     }
-    //   })
-    //   .catch(() => {
-    //     toast.error('Erro ao acionar o portão')
-    //   })
+      method: "POST"
+    }
+
+    // setTimeout(() => controller.abort(), 1000);
+    fetch('http://localhost:6000/handler',
+      {
+        method: "POST",
+        body: JSON.stringify({
+          pass: gatePass,
+          action
+        })
+      }
+    )
+      .then(() => {
+
+        toast.success('Portão acionado com sucesso')
+        if (action == "open") {
+          setOpen(true);
+        }
+        if (action == "close") {
+          setOpen(false);
+        }
+        if (action == "timed") {
+          setOpen(true);
+          setTimeout(() => {
+            setOpen(false);
+          }, 30000)
+        }
+      })
+      .catch(() => {
+        toast.error('Erro ao acionar o portão')
+      })
   }
   return (
     <>

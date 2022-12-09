@@ -8,6 +8,7 @@
     "url": "https://c2atec.com"
   },
   "private": false,
+  "type": "module",
   "dependencies": {
     "@apollo/client": "^3.6.9",
     "@emotion/react": "^11.10.4",
@@ -23,11 +24,13 @@
     "apexcharts": "^3.35.3",
     "clsx": "1.1.1",
     "date-fns": "2.28.0",
+    "esm": "^3.2.25",
+    "express": "^4.18.2",
     "gqless": "^2.0.14",
     "history": "5.3.0",
     "mapbox-gl": "^2.10.0",
     "moment": "^2.29.4",
-    "node-fetch": "^3.2.10",
+    "node-fetch": "^3.3.0",
     "nprogress": "0.2.0",
     "numeral": "2.0.6",
     "prop-types": "15.8.1",
@@ -54,6 +57,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:api": "npx ts-node-esm src/api.ts",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "lint": "eslint .",
