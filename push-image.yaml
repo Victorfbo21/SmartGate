@@ -8,7 +8,7 @@ spec:
       image: gcr.io/kaniko-project/executor:latest
       args:
         [
-          '--dockerfile=/workspace/Dockerfile',
+          '--dockerfile=/workspace/smartgate/Dockerfile',
           '--context=/workspace',
           '--destination=registry.c2atec.com/smartgate:1.0'
         ]
