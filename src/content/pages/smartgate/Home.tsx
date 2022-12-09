@@ -35,20 +35,20 @@ export const SGHome = () => {
   const searchParams = new URLSearchParams(document.location.search);
   const gatePass = searchParams.get("pass");
   const gateHandler = (action: String) => {
-    const controller = new AbortController();
-    let params: RequestInit = {
 
-      method: "POST"
-    }
 
     // setTimeout(() => controller.abort(), 1000);
-    fetch('http://localhost:6000/handler',
+    fetch('http://localhost:30147/handler',
       {
         method: "POST",
         body: JSON.stringify({
           pass: gatePass,
           action
-        })
+        }),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
       }
     )
       .then(() => {
