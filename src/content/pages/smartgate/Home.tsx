@@ -51,20 +51,24 @@ export const SGHome = () => {
         },
       }
     )
-      .then(() => {
-
-        toast.success('Portão acionado com sucesso')
-        if (action == "open") {
-          setOpen(true);
-        }
-        if (action == "close") {
-          setOpen(false);
-        }
-        if (action == "timed") {
-          setOpen(true);
-          setTimeout(() => {
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          toast.success('Portão acionado com sucesso')
+          if (action == "open") {
+            setOpen(true);
+          }
+          if (action == "close") {
             setOpen(false);
-          }, 30000)
+          }
+          if (action == "timed") {
+            setOpen(true);
+            setTimeout(() => {
+              setOpen(false);
+            }, 30000)
+          }
+        } else {
+          toast.error('Erro ao acionar o portão')
         }
       })
       .catch(() => {

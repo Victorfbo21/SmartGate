@@ -14,8 +14,12 @@ app.post('/handler', async (req, res) => {
         fetch('http://portao.c2atec.com:30147/handler?pass=' + pass + '&action=' + action).then(() => {
             res.send({ msg: "ok" })
         }).catch(err => {
-            console.log("Erro no fetch", err);
-            res.send(err);
+            if (err.code === "HPE_INVALID_HEADER_TOKEN") {
+                res.status(200).send({ msg: "ok" });
+            } else {
+                console.log("Erro no fetch", err);
+                res.status(500).send(err);
+            }
         })
     }
     catch (err) {
