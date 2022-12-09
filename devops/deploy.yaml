@@ -31,7 +31,7 @@ spec:
             - containerPort: 3000
           imagePullPolicy: Always
       imagePullSecrets:
-        - name: kaniko-secret
+        - name: regcred
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
