@@ -4,4 +4,4 @@ COPY ./package.json ./
 COPY ./package-lock.json ./
 COPY ./ ./
 RUN npm i -f
-CMD ["npm", "run", "start"]
+CMD ["/bin/bash", "exec.sh"]
