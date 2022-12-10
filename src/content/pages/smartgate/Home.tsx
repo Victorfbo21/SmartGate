@@ -38,7 +38,7 @@ export const SGHome = () => {
 
 
     // setTimeout(() => controller.abort(), 1000);
-    fetch('http://localhost:30147/handler',
+    fetch('https://api-arruda.smartgate.c2atec.com/handler',
       {
         method: "POST",
         body: JSON.stringify({
