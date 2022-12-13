@@ -8,7 +8,8 @@ import {
   FormControl,
   TextField,
   CircularProgress,
-  Grid
+  Grid,
+  InputLabel
 } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { styled } from '@mui/material/styles';
@@ -18,6 +19,7 @@ import { AuthContext } from "src/contexts/Auth/AuthContext";
 import { toast } from 'react-toastify';
 import LockOpenOutlined from '@mui/icons-material/LockOpenOutlined';
 import LockOutlined from '@mui/icons-material/LockOutlined';
+import SliderSM from './SliderSM';
 
 const MainContent = styled(Box)(
   ({ theme }) => `
@@ -32,11 +34,10 @@ const MainContent = styled(Box)(
 );
 export const SGHome = () => {
   const [isOpen, setOpen] = useState(false);
+  const [allowButtons, setAllowButtons] = useState(false);
   const searchParams = new URLSearchParams(document.location.search);
   const gatePass = searchParams.get("pass");
   const gateHandler = (action: String) => {
-
-
     // setTimeout(() => controller.abort(), 1000);
     fetch('https://api-arruda.smartgate.c2atec.com/handler',
       {
@@ -81,9 +82,15 @@ export const SGHome = () => {
         <title>SmartGate</title>
       </Helmet>
       <MainContent>
-        <Container maxWidth="sm">
-          <Container maxWidth="sm">
-            <Card sx={{ textAlign: 'center', m: 3, p: 4 }}>
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="stretch"
+          spacing={4}
+        >
+          <Grid lg={4} xs={10}>
+            <Card sx={{ textAlign: 'center', m: 3, p: 2 }}>
               <Box textAlign="center" >
                 <img alt="logo" width={100} src={process.env.PUBLIC_URL + "/static/images/logo/c2a.svg"} />
                 <Typography
@@ -104,8 +111,8 @@ export const SGHome = () => {
                 </Typography>
               </Box>
             </Card>
-          </Container>
-        </Container>
+          </Grid>
+        </Grid>
         <Grid
           container
           direction="row"
@@ -113,7 +120,7 @@ export const SGHome = () => {
           alignItems="stretch"
           spacing={4}
         >
-          <Grid lg={4} xs={6}>
+          <Grid lg={4} xs={10}>
             <Card sx={{ textAlign: 'center', m: 3, p: 2 }} >
               <Box textAlign="center">
                 <div>
@@ -121,27 +128,44 @@ export const SGHome = () => {
                   <LockOpenOutlined sx={{ fontSize: "150px", display: isOpen ? "" : "none" }} />
                 </div>
               </Box>
-              <Box textAlign="center">
-
-                <Button
-                  onClick={() => { gateHandler('open') }}
-                  sx={{ m: 1 }}
-                  variant="contained">
-                  Abrir Portão
-                </Button>
-                <Button
-                  onClick={() => { gateHandler('close') }}
-                  sx={{ m: 1 }}
-                  variant="contained">
-                  Fechar Portão
-                </Button>
-                <Button
-                  onClick={() => { gateHandler('timed') }}
-                  sx={{ m: 1 }}
-                  variant="contained">
-                  Abrir e Fechar
-                </Button>
-              </Box>
+              {!allowButtons ? (
+                <Box textAlign="center">
+                  <InputLabel>Deslize para utilizar o portão</InputLabel>
+                  <SliderSM
+                    value={allowButtons}
+                    onChange={(v) => {
+                      console.log(v);
+                      if (v)
+                        setAllowButtons(true);
+                      setTimeout(() => {
+                        setAllowButtons(false);
+                      }, 15000)
+                    }}
+                    width="120px"
+                  />
+                </Box>
+              ) : ""}
+              {allowButtons ? (
+                <Box textAlign="center" >
+                  <Button
+                    onClick={() => { gateHandler('open') }}
+                    sx={{ m: 1 }}
+                    variant="contained">
+                    Abrir Portão
+                  </Button>
+                  <Button
+                    onClick={() => { gateHandler('close') }}
+                    sx={{ m: 1 }}
+                    variant="contained">
+                    Fechar Portão
+                  </Button>
+                  <Button
+                    onClick={() => { gateHandler('timed') }}
+                    sx={{ m: 1 }}
+                    variant="contained">
+                    Abrir e Fechar
+                  </Button>
+                </Box>) : ""}
             </Card>
           </Grid>
 

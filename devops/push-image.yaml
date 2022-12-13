@@ -37,7 +37,7 @@ spec:
         [
           '--dockerfile=/workspace/smartgate/devops/Dockerfile',
           '--context=/workspace/smartgate/',
-          '--destination=registry.c2atec.com/smartgate:1.3'
+          '--destination=registry.c2atec.com/smartgate:1.4'
         ]
       volumeMounts:
         - name: kaniko-secret
