@@ -81,96 +81,87 @@ export const SGHome = () => {
       <Helmet>
         <title>SmartGate</title>
       </Helmet>
-      <MainContent>
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="stretch"
-          spacing={4}
-        >
-          <Grid lg={4} xs={10}>
-            <Card sx={{ textAlign: 'center', m: [3, 0, 0, 0], p: 2 }}>
-              <Box textAlign="center" >
-                <img alt="logo" width={100} src={process.env.PUBLIC_URL + "/static/images/logo/c2a.svg"} />
-                <Typography
-                  variant="h4"
-                  color="text.secondary"
-                  fontWeight="bold"
-                  sx={{ my: 1, mb: 1 }}
-                >
-                  Bem vindo!
-                </Typography>
-                <Typography
-                  variant="h4"
-                  color="text.secondary"
-                  fontWeight="normal"
-                  sx={{ my: 1, mb: 1 }}
-                >
-                  Para acionar o portão clique nos botões abaixo
-                </Typography>
-              </Box>
-            </Card>
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="stretch"
-          spacing={4}
-        >
-          <Grid lg={4} xs={10}>
-            <Card sx={{ textAlign: 'center', m: [3, 0, 0, 0], p: 2 }} >
-              <Box textAlign="center">
-                <div>
-                  <LockOutlined sx={{ fontSize: "150px", display: isOpen ? "none" : "" }} />
-                  <LockOpenOutlined sx={{ fontSize: "150px", display: isOpen ? "" : "none" }} />
-                </div>
-              </Box>
-              {!allowButtons ? (
-                <Box textAlign="center">
-                  <InputLabel>Deslize para utilizar o portão</InputLabel>
-                  <SliderSM
-                    value={allowButtons}
-                    onChange={(v) => {
-                      console.log(v);
-                      if (v)
-                        setAllowButtons(true);
-                      setTimeout(() => {
-                        setAllowButtons(false);
-                      }, 15000)
-                    }}
-                    width="120px"
-                  />
-                </Box>
-              ) : ""}
-              {allowButtons ? (
+      <MainContent justifyContent="center">
+        <Container>
+          <Grid
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Grid lg={10} xs={10}>
+              <Card sx={{ textAlign: 'center', mt: 3, p: 4 }}>
                 <Box textAlign="center" >
-                  <Button
-                    onClick={() => { gateHandler('open') }}
-                    sx={{ m: 1 }}
-                    variant="contained">
-                    Abrir Portão
-                  </Button>
-                  <Button
-                    onClick={() => { gateHandler('close') }}
-                    sx={{ m: 1 }}
-                    variant="contained">
-                    Fechar Portão
-                  </Button>
-                  <Button
-                    onClick={() => { gateHandler('timed') }}
-                    sx={{ m: 1 }}
-                    variant="contained">
-                    Abrir e Fechar
-                  </Button>
-                </Box>) : ""}
-            </Card>
+                  <img alt="logo" width={100} src={process.env.PUBLIC_URL + "/static/images/logo/c2a.svg"} />
+                  <Typography
+                    variant="h4"
+                    color="text.secondary"
+                    fontWeight="bold"
+                    sx={{ my: 1, mb: 1 }}
+                  >
+                    Bem vindo!
+                  </Typography>
+                  <Typography
+                    variant="h4"
+                    color="text.secondary"
+                    fontWeight="normal"
+                    sx={{ my: 1, mb: 1 }}
+                  >
+                    Para acionar o portão clique nos botões abaixo
+                  </Typography>
+                </Box>
+              </Card>
+            </Grid>
+            <Grid lg={10} xs={10}>
+              <Card sx={{ textAlign: 'center', m: 3, p: 4 }} >
+                <Box textAlign="center">
+                  <div>
+                    <LockOutlined sx={{ fontSize: "150px", display: isOpen ? "none" : "" }} />
+                    <LockOpenOutlined sx={{ fontSize: "150px", display: isOpen ? "" : "none" }} />
+                  </div>
+                </Box>
+                {!allowButtons ? (
+                  <Box textAlign="center">
+                    <InputLabel>Deslize para utilizar o portão</InputLabel>
+                    <SliderSM
+                      value={allowButtons}
+                      onChange={(v) => {
+                        console.log(v);
+                        if (v)
+                          setAllowButtons(true);
+                        setTimeout(() => {
+                          setAllowButtons(false);
+                        }, 15000)
+                      }}
+                      width="120px"
+                    />
+                  </Box>
+                ) : ""}
+                {allowButtons ? (
+                  <Box textAlign="center" >
+                    <Button
+                      onClick={() => { gateHandler('open') }}
+                      sx={{ m: 1 }}
+                      variant="contained">
+                      Abrir Portão
+                    </Button>
+                    <Button
+                      onClick={() => { gateHandler('close') }}
+                      sx={{ m: 1 }}
+                      variant="contained">
+                      Fechar Portão
+                    </Button>
+                    <Button
+                      onClick={() => { gateHandler('timed') }}
+                      sx={{ m: 1 }}
+                      variant="contained">
+                      Abrir e Fechar
+                    </Button>
+                  </Box>) : ""}
+              </Card>
+            </Grid>
           </Grid>
-
-
-        </Grid>
+        </Container>
       </MainContent>
 
     </>
