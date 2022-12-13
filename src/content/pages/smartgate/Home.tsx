@@ -90,7 +90,7 @@ export const SGHome = () => {
           spacing={4}
         >
           <Grid lg={4} xs={10}>
-            <Card sx={{ textAlign: 'center', m: 3, p: 2 }}>
+            <Card sx={{ textAlign: 'center', m: [3, 0, 0, 0], p: 2 }}>
               <Box textAlign="center" >
                 <img alt="logo" width={100} src={process.env.PUBLIC_URL + "/static/images/logo/c2a.svg"} />
                 <Typography
@@ -121,7 +121,7 @@ export const SGHome = () => {
           spacing={4}
         >
           <Grid lg={4} xs={10}>
-            <Card sx={{ textAlign: 'center', m: 3, p: 2 }} >
+            <Card sx={{ textAlign: 'center', m: [3, 0, 0, 0], p: 2 }} >
               <Box textAlign="center">
                 <div>
                   <LockOutlined sx={{ fontSize: "150px", display: isOpen ? "none" : "" }} />
