@@ -39,7 +39,7 @@ export const SGHome = () => {
   const gatePass = searchParams.get("pass");
   const gateHandler = (action: String) => {
     // setTimeout(() => controller.abort(), 1000);
-    fetch('https://api-arruda.smartgate.c2atec.com/handler',
+    fetch('/handler',
       {
         method: "POST",
         body: JSON.stringify({
