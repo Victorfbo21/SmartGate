@@ -62,12 +62,6 @@ export const SGHome = () => {
           if (action == "close") {
             setOpen(false);
           }
-          if (action == "timed") {
-            setOpen(true);
-            setTimeout(() => {
-              setOpen(false);
-            }, 30000)
-          }
         } else {
           toast.error('Erro ao acionar o portão')
         }
@@ -150,12 +144,6 @@ export const SGHome = () => {
                       sx={{ m: 1 }}
                       variant="contained">
                       Fechar Portão
-                    </Button>
-                    <Button
-                      onClick={() => { gateHandler('timed') }}
-                      sx={{ m: 1 }}
-                      variant="contained">
-                      Abrir e Fechar
                     </Button>
                   </Box>) : ""}
               </Card>
