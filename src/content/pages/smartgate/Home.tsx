@@ -35,41 +35,48 @@ const MainContent = styled(Box)(
 export const SGHome = () => {
   const [isOpen, setOpen] = useState(false);
   const [allowButtons, setAllowButtons] = useState(false);
+  const [loading, setLoading] = useState(false);
   const searchParams = new URLSearchParams(document.location.search);
   const gatePass = searchParams.get("pass");
   const gateHandler = (action: String) => {
     // setTimeout(() => controller.abort(), 1000);
     //fetch('https://arruda.coder.c2atec.com/proxy/30147/handler',
-    fetch('https://api-arruda.smartgate.c2atec.com/handler',
-      {
-        method: "POST",
-        body: JSON.stringify({
-          pass: gatePass,
-          action
-        }),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-      }
-    )
-      .then((res) => {
-        console.log(res);
-        if (res.status === 200) {
-          toast.success('Portão acionado com sucesso')
-          if (action == "open") {
-            setOpen(true);
-          }
-          if (action == "close") {
-            setOpen(false);
-          }
-        } else {
-          toast.error('Erro ao acionar o portão')
+    setTimeout(() => {
+      fetch('https://api-arruda.smartgate.c2atec.com/handler',
+        {
+          method: "POST",
+          body: JSON.stringify({
+            pass: gatePass,
+            action
+          }),
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
         }
-      })
-      .catch(() => {
-        toast.error('Erro ao acionar o portão')
-      })
+      )
+        .then((res) => {
+          setLoading(false);
+          console.log(res);
+          if (res.status === 200) {
+            toast.success('Portão acionado com sucesso')
+            if (action == "open") {
+              setOpen(true);
+            }
+            if (action == "close") {
+              setOpen(false);
+            }
+          } else {
+            toast.error('Erro ao acionar o portão')
+          }
+        })
+        .catch(() => {
+          setLoading(false);
+          toast.error('Erro ao acionar o portão')
+        })
+    }, 100);
+    setLoading(true);
+
   }
   return (
     <>
@@ -107,48 +114,49 @@ export const SGHome = () => {
                 </Box>
               </Card>
             </Grid>
-            <Grid lg={10} xs={10}>
-              <Card sx={{ textAlign: 'center', m: 3, p: 4 }} >
-                <Box textAlign="center">
-                  <div>
-                    <LockOutlined sx={{ fontSize: "150px", display: isOpen ? "none" : "" }} />
-                    <LockOpenOutlined sx={{ fontSize: "150px", display: isOpen ? "" : "none" }} />
-                  </div>
-                </Box>
-                {!allowButtons ? (
+            {!loading ?
+              <Grid lg={10} xs={10}>
+                <Card sx={{ textAlign: 'center', m: 3, p: 4 }} >
                   <Box textAlign="center">
-                    <InputLabel>Deslize para utilizar o portão</InputLabel>
-                    <SliderSM
-                      value={allowButtons}
-                      onChange={(v) => {
-                        console.log(v);
-                        if (v)
-                          setAllowButtons(true);
-                        setTimeout(() => {
-                          setAllowButtons(false);
-                        }, 15000)
-                      }}
-                      width="120px"
-                    />
+                    <div>
+                      <LockOutlined sx={{ fontSize: "150px", display: isOpen ? "none" : "" }} />
+                      <LockOpenOutlined sx={{ fontSize: "150px", display: isOpen ? "" : "none" }} />
+                    </div>
                   </Box>
-                ) : ""}
-                {allowButtons ? (
-                  <Box textAlign="center" >
-                    <Button
-                      onClick={() => { gateHandler('open') }}
-                      sx={{ m: 1 }}
-                      variant="contained">
-                      Abrir Portão
-                    </Button>
-                    <Button
-                      onClick={() => { gateHandler('close') }}
-                      sx={{ m: 1 }}
-                      variant="contained">
-                      Fechar Portão
-                    </Button>
-                  </Box>) : ""}
-              </Card>
-            </Grid>
+                  {!allowButtons ? (
+                    <Box textAlign="center">
+                      <InputLabel>Deslize para utilizar o portão</InputLabel>
+                      <SliderSM
+                        value={allowButtons}
+                        onChange={(v) => {
+                          console.log(v);
+                          if (v)
+                            setAllowButtons(true);
+                          setTimeout(() => {
+                            setAllowButtons(false);
+                          }, 15000)
+                        }}
+                        width="120px"
+                      />
+                    </Box>
+                  ) : ""}
+                  {allowButtons ? (
+                    <Box textAlign="center" >
+                      <Button
+                        onClick={() => { gateHandler('open') }}
+                        sx={{ m: 1 }}
+                        variant="contained">
+                        Abrir Portão
+                      </Button>
+                      <Button
+                        onClick={() => { gateHandler('close') }}
+                        sx={{ m: 1 }}
+                        variant="contained">
+                        Fechar Portão
+                      </Button>
+                    </Box>) : ""}
+                </Card>
+              </Grid> : <CircularProgress size={64} disableShrink thickness={3} />}
           </Grid>
         </Container>
       </MainContent>
