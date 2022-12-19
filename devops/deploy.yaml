@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
         - name: smartgate-app
-          image: 'registry.c2atec.com/smartgate:1.6'
+          image: 'registry.c2atec.com/smartgate:1.7'
           ports:
             - containerPort: 3000
           imagePullPolicy: Always
