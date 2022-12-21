@@ -78,6 +78,14 @@ export const SGHome = () => {
     setLoading(true);
 
   }
+  const onSlide = (v) => {
+    console.log(v);
+    if (v)
+      setAllowButtons(true);
+    setTimeout(() => {
+      setAllowButtons(false);
+    }, 15000)
+  }
   return (
     <>
       <Helmet>
@@ -109,54 +117,50 @@ export const SGHome = () => {
                     fontWeight="normal"
                     sx={{ my: 1, mb: 1 }}
                   >
-                    Para acionar o portão clique nos botões abaixo
+                    Para acionar o portão deslize o botão abaixo para a direita
                   </Typography>
                 </Box>
               </Card>
             </Grid>
-            {!loading ?
-              <Grid lg={10} xs={10}>
-                <Card sx={{ textAlign: 'center', m: 3, p: 4 }} >
-                  <Box textAlign="center">
-                    <div>
-                      <LockOutlined sx={{ fontSize: "150px", display: isOpen ? "none" : "" }} />
-                      <LockOpenOutlined sx={{ fontSize: "150px", display: isOpen ? "" : "none" }} />
-                    </div>
-                  </Box>
-                  {!allowButtons ? (
+            <Grid lg={10} xs={10}>
+              <Card sx={{ textAlign: 'center', m: 3, p: 4 }} >
+                {!loading ?
+                  <>
                     <Box textAlign="center">
-                      <InputLabel>Deslize para utilizar o portão</InputLabel>
-                      <SliderSM
-                        value={allowButtons}
-                        onChange={(v) => {
-                          console.log(v);
-                          if (v)
-                            setAllowButtons(true);
-                          setTimeout(() => {
-                            setAllowButtons(false);
-                          }, 15000)
-                        }}
-                        width="120px"
-                      />
+                      <div>
+                        <LockOutlined sx={{ fontSize: "150px", display: isOpen ? "none" : "" }} />
+                        <LockOpenOutlined sx={{ fontSize: "150px", display: isOpen ? "" : "none" }} />
+                      </div>
                     </Box>
-                  ) : ""}
-                  {allowButtons ? (
-                    <Box textAlign="center" >
-                      <Button
-                        onClick={() => { gateHandler('open') }}
-                        sx={{ m: 1 }}
-                        variant="contained">
-                        Abrir Portão
-                      </Button>
-                      <Button
-                        onClick={() => { gateHandler('close') }}
-                        sx={{ m: 1 }}
-                        variant="contained">
-                        Fechar Portão
-                      </Button>
-                    </Box>) : ""}
-                </Card>
-              </Grid> : <CircularProgress size={64} disableShrink thickness={3} />}
+                    {!allowButtons ? <>
+                      <Box textAlign="center">
+                        <InputLabel>Deslize para utilizar o portão</InputLabel>
+                        <SliderSM
+                          value={allowButtons}
+                          onChange={onSlide}
+                          width="120px"
+                        />
+                      </Box>
+                      <Box textAlign="center" >
+                        <Button
+                          onClick={() => { gateHandler('open') }}
+                          sx={{ m: 1 }}
+                          variant="contained">
+                          Abrir Portão
+                        </Button>
+                        <Button
+                          onClick={() => { gateHandler('close') }}
+                          sx={{ m: 1 }}
+                          variant="contained">
+                          Fechar Portão
+                        </Button>
+                      </Box>
+                    </>
+                      : ""}
+                  </>
+                  : <CircularProgress size={64} disableShrink thickness={3} />}
+              </Card>
+            </Grid>
           </Grid>
         </Container>
       </MainContent>
