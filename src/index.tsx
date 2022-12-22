@@ -93,7 +93,7 @@ root.render(
   <HelmetProvider>
     <SidebarProvider>
       <AuthProvider>
-        <BrowserRouter basename='/proxy/3000' >
+        <BrowserRouter basename={process.env.PUBLIC_URL} >
           <App />
         </BrowserRouter>
       </AuthProvider>
