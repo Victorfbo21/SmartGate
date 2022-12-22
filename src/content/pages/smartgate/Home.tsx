@@ -132,7 +132,7 @@ export const SGHome = () => {
                         <LockOpenOutlined sx={{ fontSize: "150px", display: isOpen ? "" : "none" }} />
                       </div>
                     </Box>
-                    {!allowButtons ? <>
+                    {!allowButtons ?
                       <Box textAlign="center">
                         <InputLabel>Deslize para utilizar o portão</InputLabel>
                         <SliderSM
@@ -141,6 +141,7 @@ export const SGHome = () => {
                           width="120px"
                         />
                       </Box>
+                      :
                       <Box textAlign="center" >
                         <Button
                           onClick={() => { gateHandler('open') }}
@@ -155,8 +156,7 @@ export const SGHome = () => {
                           Fechar Portão
                         </Button>
                       </Box>
-                    </>
-                      : ""}
+                    }
                   </>
                   : <CircularProgress size={64} disableShrink thickness={3} />}
               </Card>

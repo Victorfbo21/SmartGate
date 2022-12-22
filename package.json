@@ -59,6 +59,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:dev": "PUBLIC_URL=/absproxy/3000 react-scripts start",
     "start:api": "npx ts-node-esm src/api.ts",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
