@@ -42,7 +42,7 @@ export const SGHome = () => {
     // setTimeout(() => controller.abort(), 1000);
     //fetch('https://arruda.coder.c2atec.com/proxy/30147/handler',
     setTimeout(() => {
-      fetch('https://api-arruda.smartgate.c2atec.com/handler',
+      fetch(process.env.REACT_APP_SMARTGATE_API_URL,
         {
           method: "POST",
           body: JSON.stringify({
@@ -76,7 +76,6 @@ export const SGHome = () => {
         })
     }, 100);
     setLoading(true);
-
   }
   const onSlide = (v) => {
     console.log(v);
