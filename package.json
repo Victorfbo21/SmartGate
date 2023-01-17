@@ -60,7 +60,7 @@
   "scripts": {
     "start": "react-scripts start",
     "start:dev": "PUBLIC_URL=/absproxy/3000 react-scripts start",
-    "start:api": "pm2 start 'npx ts-node-esm src/api.ts'",
+    "start:api": "pm2 start 'npx ts-node-esm src/api.ts' -n api-sg",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "lint": "eslint .",
